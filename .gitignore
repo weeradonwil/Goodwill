@@ -1,0 +1,7 @@
+# Google Service Account Credentials
+/secrets/
+
+# Environment variables
+.env
+.env.*
+!.env.example
