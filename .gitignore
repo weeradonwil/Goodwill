@@ -1,5 +1,6 @@
 # Google Service Account Credentials
 /secrets/
+/data/google_sheets_export/
 
 # Environment variables
 .env

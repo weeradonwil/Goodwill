@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# Goodwill Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Responsive frontend prototype for the Goodwill Inventory & Delivery Management System. The current screens use fictional in-memory data. Google Sheets and the FastAPI backend are not connected.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React + TypeScript + Vite
+- Tailwind CSS v4 (Vite plugin) with a small shared CSS design system
+- React Router, Lucide React, Recharts
+- ESLint
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```powershell
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Vite prints the local address. Production output can be checked with:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```powershell
+npm run build
+npm run preview
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Pages
 
+- Dashboard
+- INV Search
+- Google Sheets Sync (simulation only)
+- User Management (local prototype state only)
+- Audit Logs (sample rows)
+- Coming Soon pages for Phase 2 features
+
+## Structure
+
+```text
+src/
+  components/layout/   App shell, sidebar, topbar
+  components/ui/       Buttons, cards, badges, modals, UI states
+  data/                Fictional sample data
+  pages/               Route pages
+  services/            Future API URL helper; currently makes no requests
+  types.ts             Frontend view types
+```
+
+## Environment and API
+
+`VITE_API_BASE_URL` is reserved for a future FastAPI connection. No endpoint calls run in this prototype. Do not put Google credentials, service account keys, or other secrets in frontend environment variables; all Google Sheets access must remain in the backend.
+
+Sync, users, and audit screens are demonstrations. Sync never calls Google APIs. User changes are held only in React memory and are not saved to a backend or browser storage. Sample INV identifiers, people, stores, times, statuses, and activity are fictional. Unknown business fields remain marked `Unknown`; duplicate INV examples are separate records.
+
+## Checks
+
+```powershell
+npm run lint
+npm run build
 ```
